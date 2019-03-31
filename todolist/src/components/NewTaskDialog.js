@@ -17,12 +17,13 @@ class NewTaskDialog extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleOptChange = this.handleOptChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.validateInputs = this.validateInputs.bind(this);
 
         this.state = {
             open: true,
             text: "",
             type: options[0],
-            period: new Date()
+            period: ""
         };
     }
 
@@ -50,7 +51,19 @@ class NewTaskDialog extends Component {
         this.props.handleClose();
     }
 
+    validateInputs(text, type, period) {
+        if (!text || text === "") return false;
+        if (!type || type === "") return false;
+        if (!period || period === "") return false;
+        return true;
+    }
+
     handleOk() {
+        if (!this.validateInputs(this.state.text, this.state.type, this.state.period)) {    
+            alert("Fill the Information needed!");
+            return;
+        }
+
         this.setState({ open: false });
         this.handleNewTask(this.state.text, this.state.type, this.state.period);
         this.props.handleClose();

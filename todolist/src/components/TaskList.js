@@ -67,11 +67,9 @@ class TaskList extends Component {
 
                 {this.state.dialogOpen ? <NewTaskDialog handleClose={this.handleClose} handleNewTask={this.handleNewTask}/> : ""}
 
-                <div className="add-button">
-                    <Fab color="primary" aria-label="Add" className="fab-button">
-                        <AddIcon onClick={this.handleClickOpen}/>
-                    </Fab>
-                </div>
+                <Fab color="primary" aria-label="Add" className="fab-button">
+                    <AddIcon onClick={this.handleClickOpen}/>
+                </Fab>
             </div>
         );
     }
