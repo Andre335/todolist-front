@@ -5,3 +5,7 @@
 .task-card {
     min-width: 500px;
 }
+
+.errors {
+    color: red;
+}

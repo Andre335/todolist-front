@@ -5,6 +5,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import '../css/TaskItem.css';
 
 var options = ["Pessoal", "Professional"];
 
@@ -15,31 +20,19 @@ class NewTaskDialog extends Component {
         this.handleOk = this.handleOk.bind(this);
         this.handleNewTask = this.handleNewTask.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleOptChange = this.handleOptChange.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
         this.validateInputs = this.validateInputs.bind(this);
 
         this.state = {
             open: true,
             text: "",
             type: options[0],
-            period: ""
+            period: "",
+            error: ""
         };
     }
 
-    handleChange(e) {
-        const value = e.target["value"];
-        this.setState({ text: value });
-    }
-
-    handleOptChange(e) {
-        const value = e.target["value"];
-        this.setState({ type: value });
-    }
-
-    handleDateChange(e) {
-        const value = e.target["value"];
-        this.setState({ period: value });
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
     }
 
     handleNewTask(title, type, period) {
@@ -52,15 +45,16 @@ class NewTaskDialog extends Component {
     }
 
     validateInputs(text, type, period) {
-        if (!text || text === "") return false;
-        if (!type || type === "") return false;
-        if (!period || period === "") return false;
-        return true;
+        if (!text || text === "") return "Title";
+        if (!type || type === "") return "Categorie";
+        if (!period || period === "") return "Date";
+        return;
     }
 
     handleOk() {
-        if (!this.validateInputs(this.state.text, this.state.type, this.state.period)) {    
-            alert("Fill the Information needed!");
+        var error = this.validateInputs(this.state.text, this.state.type, this.state.period);
+        if (error) {    
+            this.setState({ error: error });
             return;
         }
 
@@ -83,28 +77,42 @@ class NewTaskDialog extends Component {
                         <DialogContentText id="alert-dialog-description">
                             New Task
                         </DialogContentText>
+                        <form className="new-task-form">
+                            <FormControl className="form-control">
+                                <TextField
+                                    id="title"
+                                    label="Title"
+                                    placeholder="Title"
+                                    className="title"
+                                    margin="normal"
+                                    onChange={this.handleChange('text')}
+                                    required
+                                /> <br/>
 
-                        <input
-                            type="text"
-                            placeholder="Title"
-                            value={this.props.text}
-                            name="Title"
-                            onChange={this.handleChange}
-                        /> <br/>
+                                <Select
+                                    value={this.state.type}
+                                    onChange={this.handleChange('type')}
+                                    inputProps={{
+                                        name: 'type',
+                                        id: 'type',
+                                    }}
+                                    label="Categorie"
+                                >
+                                    {options.map(type => <MenuItem value={type}>{type}</MenuItem>)}
+                                </Select> <br/>
+                                
+                                <input
+                                    type="date"
+                                    placeholder="Period"
+                                    value={this.props.period}
+                                    name="Period"
+                                    onChange={this.handleChange('period')}
+                                    required
+                                />
 
-                        <select>
-                            {options.map(type => <option handleChange={this.handleOptChange} 
-                                                         value={type}>{type}</option>)}
-                        </select> <br/>
-
-                        <input
-                            type="date"
-                            placeholder="Period"
-                            value={this.props.period}
-                            name="Period"
-                            onChange={this.handleDateChange}
-                        />
-
+                                {this.state.error ? <p className="errors"> {"Please fill out the " + this.state.error} </p> : ""}
+                            </FormControl>
+                        </form>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
