@@ -29,30 +29,32 @@ class TaskItem extends Component {
 
     render() {
         return(
-            <ListItem className="task-item">
-                <Card className="task-card">
-                    <CardHeader
-                        title={<h1> {this.props.task.title} </h1>}
-                        subheader={
-                            <div className="subheader">
-                                {"Categoria: " + this.props.task.type} <br/>
-                                {"Até: " + this.formatDate(this.props.task.period)}
-                            </div>
-                        }
-                        
-                        action={
-                            <IconButton>
-                              <DeleteIcon />
-                            </IconButton>
-                        }
+            <div className="list-item">
+                <ListItem className="task-item">
+                    <Card className="task-card">
+                        <CardHeader
+                            title={<h1> {this.props.task.title} </h1>}
+                            subheader={
+                                <div className="subheader">
+                                    {"Categoria: " + this.props.task.type} <br/>
+                                    {"Até: " + this.formatDate(this.props.task.period)}
+                                </div>
+                            }
+                            
+                            action={
+                                <IconButton>
+                                <DeleteIcon />
+                                </IconButton>
+                            }
 
-                        avatar={
-                            this.state.status ? <DoneIcon onClick={this.handleStatus}/> 
-                                                : <NotDoneIcon onClick={this.handleStatus}/>
-                        }
-                    />
-                </Card>
-            </ListItem>
+                            avatar={
+                                this.state.status ? <DoneIcon onClick={this.handleStatus}/> 
+                                                    : <NotDoneIcon onClick={this.handleStatus}/>
+                            }
+                        />
+                    </Card>
+                </ListItem>
+            </div>
         )
     }
 }

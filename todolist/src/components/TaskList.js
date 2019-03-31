@@ -57,11 +57,13 @@ class TaskList extends Component {
     render() {
         return(
             <div className="task-list-container">
-                <List className="TaskList">
-                    {
-                        this.state.tasks.map(task => <TaskItem key={task._id} task={task} handleStatus={this.handleStatus} title={task.title}/>)
-                    }
-                </List>
+                <div className="task-list">
+                    <List className="TaskList">
+                        {
+                            this.state.tasks.map(task => <TaskItem key={task._id} task={task} handleStatus={this.handleStatus} title={task.title}/>)
+                        }
+                    </List>
+                </div>
 
                 {this.state.dialogOpen ? <NewTaskDialog handleClose={this.handleClose} handleNewTask={this.handleNewTask}/> : ""}
 
