@@ -2,18 +2,31 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import List from '@material-ui/core/List';
 import TaskItem from './TaskItem';
-// import '../css/TaskList.css';
+import NewTaskDialog from './NewTaskDialog';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import '../css/TaskList.css';
 
 class TaskList extends Component {
     constructor() {
         super();
         this.handleNewTask = this.handleNewTask.bind(this);
         this.handleStatus = this.handleStatus.bind(this);
+        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
 
         this.state = {
             tasks: []
         }
     }
+
+    handleClickOpen = () => {
+        this.setState({ dialogOpen: true });
+    };
+
+    handleClose = () => {
+        this.setState({ dialogOpen: false });
+    };
 
     handleStatus(task_id, status) {
         var updatedTasks = this.state.tasks.filter((task) => { return task._id !== task_id});
@@ -46,10 +59,17 @@ class TaskList extends Component {
             <div className="task-list-container">
                 <List className="TaskList">
                     {
-                        this.state.tasks.map(task => <TaskItem key={task._id} task={task} handleNewTask={this.handleStatus}
-                                                               handleStatus={this.handleStatus} title={task.title}/>)
+                        this.state.tasks.map(task => <TaskItem key={task._id} task={task} handleStatus={this.handleStatus} title={task.title}/>)
                     }
                 </List>
+
+                {this.state.dialogOpen ? <NewTaskDialog handleClose={this.handleClose} handleNewTask={this.handleNewTask}/> : ""}
+
+                <div className="add-button">
+                    <Fab color="primary" aria-label="Add" className="fab-button">
+                        <AddIcon onClick={this.handleClickOpen}/>
+                    </Fab>
+                </div>
             </div>
         );
     }
