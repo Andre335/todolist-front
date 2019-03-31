@@ -14,6 +14,7 @@ class TaskList extends Component {
         this.handleStatus = this.handleStatus.bind(this);
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
 
         this.state = {
             tasks: []
@@ -31,7 +32,14 @@ class TaskList extends Component {
     handleStatus(task_id, status) {
         var updatedTasks = this.state.tasks.filter((task) => { return task._id !== task_id});
         axios.put('http://localhost:3001/task/' + task_id, {done: status}).then(res => {
-            this.setState({ tasks: [...updatedTasks, res.data]});
+            this.setState({ tasks: [...updatedTasks, res.data] });
+        });
+    }
+
+    handleDelete(task_id) {
+        var updatedTasks = this.state.tasks.filter((task) => { return task._id !== task_id});
+        axios.delete('http://localhost:3001/task/' + task_id).then(res => {
+            this.setState({ tasks: updatedTasks });
         });
     }
 
@@ -60,7 +68,8 @@ class TaskList extends Component {
                 <div className="task-list">
                     <List className="TaskList">
                         {
-                            this.state.tasks.map(task => <TaskItem key={task._id} task={task} handleStatus={this.handleStatus} title={task.title}/>)
+                            this.state.tasks.map(task => <TaskItem key={task._id} task={task} handleStatus={this.handleStatus} 
+                                                                   title={task.title} handleDelete={this.handleDelete} />)
                         }
                     </List>
                 </div>

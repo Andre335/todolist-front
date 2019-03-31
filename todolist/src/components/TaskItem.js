@@ -13,9 +13,15 @@ class TaskItem extends Component {
         super(props);
         this.handleStatus = this.handleStatus.bind(this);
         this.formatDate = this.formatDate.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+
         this.state = {
             status: this.props.task.done
         };
+    }
+
+    handleDelete() {
+        this.props.handleDelete(this.props.task._id);
     }
 
     handleStatus() {
@@ -42,8 +48,8 @@ class TaskItem extends Component {
                             }
                             
                             action={
-                                <IconButton>
-                                <DeleteIcon />
+                                <IconButton onClick={this.handleDelete}>
+                                    <DeleteIcon/>
                                 </IconButton>
                             }
 
