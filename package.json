@@ -1,0 +1,8 @@
+{
+  "name": "todolist",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "create-react-app": "^2.1.8"
+  }
+}
