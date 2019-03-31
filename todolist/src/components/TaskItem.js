@@ -42,8 +42,8 @@ class TaskItem extends Component {
                             title={<h1> {this.props.task.title} </h1>}
                             subheader={
                                 <div className="subheader">
-                                    {"Categoria: " + this.props.task.type} <br/>
-                                    {"Até: " + this.formatDate(this.props.task.period)}
+                                    {"Categorie: " + this.props.task.type} <br/>
+                                    {"Until: " + this.formatDate(this.props.task.period)}
                                 </div>
                             }
                             

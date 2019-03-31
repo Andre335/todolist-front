@@ -11,7 +11,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import '../css/TaskItem.css';
 
-var options = ["Pessoal", "Professional"];
+var options = ["Personal", "Professional"];
 
 class NewTaskDialog extends Component {
     constructor(props) {
