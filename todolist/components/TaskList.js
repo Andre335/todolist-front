@@ -3,7 +3,7 @@ import axios from 'axios';
 import List from '@material-ui/core/List';
 import '../css/TaskList.css';
 
-class TaskList extends Components {
+class TaskList extends Component {
     constructor(props) {
         super(props);
         this.handleStatus = this.handleStatus.bind(this);
@@ -32,4 +32,4 @@ class TaskList extends Components {
     }
 }
 
-export default LiveList;
+export default TaskList;
